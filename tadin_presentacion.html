@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digitalización de Procesos de TA-DIN</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0C1929; --dark:#07101C; --card:#122338; --card2:#17304d;
+  --line:rgba(255,255,255,.12); --text:#F1F5F9; --muted:#AAB6C8; --sky:#38BDF8;
+  --red:#F87171; --amber:#FBBF24; --green:#4ADE80;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Open Sans',sans-serif;background:var(--navy);color:var(--text);overflow:hidden;
+  display:flex;flex-direction:column;user-select:none;
+  background-image:radial-gradient(circle at 50% 15%,rgba(27,56,90,.45),transparent 60%),
+  repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0 1px,transparent 1px 10px)}
+h1,h2,h3,h4,.cond{font-family:'Oswald','Montserrat',sans-serif;text-transform:uppercase}
+.mono{font-variant-numeric:tabular-nums}
+
+/* Header */
+header{background:#fff;color:#0f172a;display:flex;justify-content:space-between;align-items:center;
+  padding:.7rem 1.6rem;box-shadow:0 2px 10px rgba(0,0,0,.35);z-index:10;flex-shrink:0;gap:1rem}
+.logo{font:700 1.7rem/1 'Oswald',sans-serif;letter-spacing:.18em}
+.tag{display:block;font:700 .6rem 'Montserrat',sans-serif;letter-spacing:.08em;color:#64748b;margin-top:.25rem;text-transform:uppercase}
+nav{display:flex;gap:1.6rem}
+nav button{background:none;border:0;font:700 .78rem 'Montserrat',sans-serif;letter-spacing:.08em;color:#334155;cursor:pointer;
+  text-transform:uppercase;padding:.4rem 0;border-bottom:2px solid transparent}
+nav button:hover,nav button.on{color:#0C1929;border-bottom-color:#0C1929}
+.arrows{display:flex;gap:.5rem}
+.btn{background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.1);font:700 .75rem 'Montserrat',sans-serif;
+  letter-spacing:.08em;padding:.6rem .9rem;border-radius:5px;cursor:pointer;text-transform:uppercase;display:inline-flex;gap:.5rem;align-items:center}
+.btn:hover{background:#1B385A}
+.btn.ghost{background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.35)}
+.btn.big{font-size:.9rem;padding:.95rem 1.5rem}
+.btn:focus-visible,nav button:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+
+/* Slides */
+main{flex:1;min-height:0;position:relative;padding:clamp(.8rem,2.2vh,2rem) clamp(1rem,3vw,3rem)}
+.slide{display:none;flex-direction:column;width:100%;height:100%;max-width:1320px;margin:0 auto;overflow-y:auto;
+  font-size:clamp(13px,.55vw + .85vh,19px)}
+.slide.active{display:flex;animation:in .3s ease}
+@keyframes in{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.slide.active{animation:none}}
+.title{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--line);
+  padding-bottom:.7em;margin-bottom:1em;flex-shrink:0}
+.title h2{font-size:2.3em;font-weight:700;line-height:1.05}
+.title small{display:block;font:700 .75em 'Montserrat',sans-serif;letter-spacing:.2em;color:var(--sky);margin-bottom:.3em}
+.title .n{font:700 1.5em 'Oswald',sans-serif;color:#64748b}
+
+/* Cover */
+.cover{align-items:center;justify-content:center;text-align:center}
+.pill{font:700 .8em 'Montserrat',sans-serif;letter-spacing:.25em;color:#CBD5E1;border:1px solid var(--line);
+  background:rgba(255,255,255,.05);padding:.5em 1.4em;border-radius:99px;margin-bottom:1.6em;text-transform:uppercase}
+.cover h1{font-size:clamp(4rem,12vw,9rem);font-weight:700;line-height:.95;letter-spacing:.03em}
+.cover h3{font-size:clamp(1.3rem,3vw,2.4rem);font-weight:500;letter-spacing:.22em;color:#CBD5E1;margin:.4em 0 1em}
+.cover p{max-width:46em;line-height:1.65;color:#CBD5E1;font-size:1.1em;margin-bottom:2em}
+.cover .row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+
+/* Cards & Layout */
+.grid{display:grid;gap:1.1em}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.2em 1.3em}
+.card h3{font-size:1.25em;font-weight:600;letter-spacing:.04em;display:flex;align-items:center;gap:.6em;
+  padding-bottom:.6em;margin-bottom:.8em;border-bottom:1px solid var(--line)}
+.card h3 i{font-size:1em}
+.card.c1 h3 i{color:var(--sky)} .card.c2{border-top:3px solid var(--red)} .card.c2 h3 i{color:var(--red)}
+.card.c1{border-top:3px solid var(--sky)} .card.c3{border-top:3px solid var(--green)} .card.c3 h3 i{color:var(--green)}
+.card.c4{border-top:3px solid var(--amber)} .card.c4 h3 i{color:var(--amber)}
+.list{list-style:none;display:grid;gap:.75em}
+.list li{display:flex;gap:.7em;line-height:1.5;color:#DCE4EE}
+.list li i{color:#64748b;margin-top:.35em;font-size:.8em;flex-shrink:0}
+.list b{color:#fff}
+
+/* Video Layout */
+.video-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:1.2em;align-items:start}
+.video-container{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;box-shadow:0 10px 25px rgba(0,0,0,.5)}
+.video-container video{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
+.video-info{background:var(--card2);border-radius:10px;padding:1em 1.2em;margin-top:.8em;border:1px solid var(--line)}
+.video-info h4{color:var(--sky);font-size:1.1em;margin-bottom:.3em}
+.video-info p{font-size:.9em;color:#CBD5E1;line-height:1.4}
+
+/* Economic */
+.kpis{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1.3fr;gap:.9em;margin-bottom:1em}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.8em 1em}
+.kpi span{display:block;font:700 .72em 'Montserrat',sans-serif;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:.3em}
+.kpi b{font:700 1.7em 'Oswald',sans-serif;line-height:1}
+.kpi.hi{background:var(--card2);border-color:rgba(56,189,248,.5)}
+.kpi.hi b{color:var(--sky);font-size:2em}
+table{width:100%;border-collapse:collapse}
+th{font:600 .8em 'Oswald',sans-serif;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;text-align:right;
+  padding:.55em .6em;background:var(--dark)}
+th:first-child,td:first-child{text-align:left}
+td{padding:.55em .6em;text-align:right;border-bottom:1px solid rgba(255,255,255,.07);color:#DCE4EE}
+td:first-child{color:#fff;font-weight:600}
+tr.sub td{background:rgba(0,0,0,.3);font-weight:700;color:var(--sky);border-top:1px solid rgba(255,255,255,.25)}
+tr.sub td:first-child{font-family:'Oswald',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.card.t{padding:0;overflow:hidden}
+.card.t h3{margin:0;padding:.75em 1em;background:rgba(255,255,255,.04);border-bottom:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;align-items:center;background:var(--card2);
+  border:1px solid rgba(56,189,248,.5);border-radius:10px;padding:.9em 1.3em;margin-top:1em}
+.total .cond{font-size:1.1em;letter-spacing:.06em}
+.total .eq{color:var(--muted);font-size:.92em}
+.total b{font:700 1.8em 'Oswald',sans-serif;color:var(--sky)}
+
+/* Conclusion */
+.concl .card{text-align:left}
+.concl .card>i{font-size:1.8em;color:var(--sky);margin-bottom:.5em;display:block}
+.concl .card h3{border:0;padding:0;margin-bottom:.4em}
+.concl .card p{line-height:1.6;color:#DCE4EE}
+.final{text-align:center;margin-top:1.1em;background:var(--card2);border:1px solid rgba(56,189,248,.35);border-radius:10px;padding:1.4em}
+.final h4{font-size:1.4em;font-weight:600;letter-spacing:.05em;margin-bottom:.4em}
+.final p{max-width:48em;margin:0 auto;line-height:1.6;color:#DCE4EE}
+
+/* Footer */
+footer{background:rgba(2,6,14,.9);border-top:1px solid var(--line);padding:.6rem 1.6rem;display:flex;
+  justify-content:space-between;align-items:center;font-size:.78rem;flex-shrink:0;color:#94A3B8}
+footer b{font:600 .95rem 'Oswald',sans-serif;letter-spacing:.12em;color:#fff;margin-right:.6rem}
+.dots{display:flex;gap:.4rem}
+.dots button{width:.55rem;height:.55rem;border-radius:99px;border:0;background:#475569;cursor:pointer;transition:.2s}
+.dots button.on{width:1.5rem;background:var(--sky)}
+
+@media (max-width:900px){
+  nav{display:none}
+  .g3,.g2,.kpis,.video-layout{grid-template-columns:1fr}
+  .btn span{display:none}
+  .total{flex-direction:column;gap:.5em;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div><div class="logo">TA·DIN</div><span class="tag">Servicio profesional de pintura electroestática</span></div>
+  <nav id="nav">
+    <button onclick="goToSlide(0)">Inicio</button>
+    <button onclick="goToSlide(1)">Testimonio</button>
+    <button onclick="goToSlide(2)">Estimación económica</button>
+    <button onclick="goToSlide(3)">Conclusión</button>
+  </nav>
+  <div class="arrows">
+    <button class="btn" onclick="changeSlide(-1)" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i><span>Anterior</span></button>
+    <button class="btn" onclick="changeSlide(1)" aria-label="Siguiente"><span>Siguiente</span><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. CARÁTULA -->
+  <section class="slide cover active" id="cover">
+    <div class="pill">Presentación institucional de proyecto</div>
+    <h1>TA-DIN</h1>
+    <h3>Digitalización de procesos</h3>
+    <p>Implementación integral de sistema biométrico de control de asistencia, desarrollo de portal de Recursos Humanos y plataforma web con tarjetas NFC para la certificación ISO 9001.</p>
+  </section>
+
+  <!-- 2. TESTIMONIO Y SERGIO BRAVO -->
+  <section class="slide">
+    <div class="title">
+      <div><small>TESTIMONIO DE CLIENTE</small><h2>Entrevista: Sergio Bravo (Tadin Esmaltaciones)</h2></div>
+      <span class="n">02 / 05</span>
+    </div>
+    <div class="video-layout">
+      <!-- Columna Izquierda: Video -->
+      <div>
+        <div class="video-container">
+          <video controls poster="input_file_0.png">
+            <source src="input_file_0.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+          </video>
+        </div>
+        <div class="video-info">
+          <h4><i class="fa-solid fa-user-check"></i> Sergio Bravo</h4>
+          <p>Dirección de <b>Tadin Esmaltaciones</b> (Servicios de pintura en polvo electrostática para sectores minero y energético).</p>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Tarjetas de información estructurada -->
+      <div class="grid g2" style="grid-template-columns:1fr">
+        <div class="card c1">
+          <h3><i class="fa-solid fa-list-check"></i> 1. Tareas diarias y gestión</h3>
+          <ul class="list">
+            <li><i class="fa-solid fa-angle-right"></i><span>Coordinación de entrada y salida de mercadería.</span></li>
+            <li><i class="fa-solid fa-angle-right"></i><span>Organización del personal y supervisión de pintura.</span></li>
+            <li><i class="fa-solid fa-angle-right"></i><span>Control integral de stock.</span></li>
+          </ul>
+        </div>
+
+        <div class="card c2">
+          <h3><i class="fa-solid fa-triangle-exclamation"></i> 2. Antecedentes y desafío</h3>
+          <ul class="list">
+            <li><i class="fa-solid fa-angle-right"></i><span><b>Modo artesanal:</b> falta de canal unificado generaba dispersión en consultas y presupuestos.</span></li>
+            <li><i class="fa-solid fa-angle-right"></i><span><b>Objetivo clave:</b> Digitalizar y sistematizar para certificar la norma <b>ISO 9000</b>.</span></li>
+          </ul>
+        </div>
+
+        <div class="card c3">
+          <h3><i class="fa-solid fa-bolt"></i> 3. Cambios y digitalización</h3>
+          <ul class="list">
+            <li><i class="fa-solid fa-angle-right"></i><span>Sistematización de presupuestos, control de personal, horas y faltas.</span></li>
+            <li><i class="fa-solid fa-angle-right"></i><span>Acceso instantáneo a los datos a un solo clic y gran rapidez.</span></li>
+            <li><i class="fa-solid fa-angle-right"></i><span>Experiencia altamente positiva: recomienda y seguirá usando la solución.</span></li>
+          </ul>
+        </div>
+
+        <div class="card c4">
+          <h3><i class="fa-solid fa-graduation-cap"></i> 4. Experiencia con el equipo</h3>
+          <ul class="list">
+            <li><i class="fa-solid fa-angle-right"></i><span>Destacó el gran entusiasmo, curiosidad e interés de los estudiantes por aprender los procesos de la empresa.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ESTIMACIÓN ECONÓMICA -->
+  <section class="slide">
+    <div class="title">
+      <div><small>ESTIMACIÓN ECONÓMICA · 14/04/26 AL 14/11/26</small><h2>Costos y precio de venta</h2></div>
+      <span class="n">03 / 05</span>
+    </div>
+    <div class="kpis">
+      <div class="kpi hi"><span>Precio de venta</span><b class="mono">$15.484,80</b></div>
+      <div class="kpi"><span>Esfuerzo</span><b class="mono">862 hs</b></div>
+      <div class="kpi"><span>Margen</span><b>25%</b></div>
+      <div class="kpi"><span>Ganancia</span><b class="mono">$3.096,96</b></div>
+      <div class="kpi"><span>Duración</span><b>7 meses</b></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1.35fr 1fr;align-items:start">
+      <div class="card t">
+        <h3 class="cond">1.A Costes de personal</h3>
+        <table>
+          <thead><tr><th>Categoría</th><th>Horas</th><th>Costo/hr</th><th>Conting.</th><th>Coste</th></tr></thead>
+          <tbody class="mono">
+            <tr><td>Project Manager</td><td>188</td><td>$15,00</td><td>5%</td><td>$2.961,00</td></tr>
+            <tr><td>Administrador de BD</td><td>180</td><td>$8,00</td><td>5%</td><td>$1.512,00</td></tr>
+            <tr><td>Desarrollador 03 · Front/Back</td><td>173</td><td>$12,00</td><td>5%</td><td>$2.179,80</td></tr>
+            <tr><td>Diseñador UX/UI</td><td>146</td><td>$15,00</td><td>5%</td><td>$2.299,50</td></tr>
+            <tr><td>Esp. Infraestructura de seguridad</td><td>175</td><td>$15,00</td><td>5%</td><td>$2.756,25</td></tr>
+            <tr class="sub"><td>Subtotal</td><td>862</td><td></td><td></td><td>$11.708,55</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card t">
+        <h3 class="cond">1.B Costes varios</h3>
+        <table>
+          <thead><tr><th>Concepto</th><th>Unit.</th><th>Cant.</th><th>Coste</th></tr></thead>
+          <tbody class="mono">
+            <tr><td>Internet</td><td>$57,65</td><td>7 meses</td><td>$431,79</td></tr>
+            <tr><td>Insumos materiales</td><td>$138,66</td><td>1</td><td>$148,36</td></tr>
+            <tr><td>Insumos tecnológicos</td><td>$51,76</td><td>1</td><td>$55,38</td></tr>
+            <tr><td>Entrega de productos</td><td>$8,95</td><td>1</td><td>$9,57</td></tr>
+            <tr><td>Viáticos</td><td>$12,78</td><td>1</td><td>$13,67</td></tr>
+            <tr><td>Comida</td><td>$19,17</td><td>1</td><td>$20,51</td></tr>
+            <tr class="sub"><td>Subtotal</td><td></td><td></td><td>$679,29</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="total">
+      <span class="cond">Total de costos (1.A + 1.B)</span>
+      <span class="eq">+ 25% de margen = precio de venta $15.484,80</span>
+      <b class="mono">$12.387,84</b>
+    </div>
+  </section>
+
+  <!-- 4. CONCLUSIÓN DE CIERRE DEL EQUIPO (NUEVA 4TA DIAPOSITIVA) -->
+  <section class="slide concl">
+    <div class="title">
+      <div><small>RESUMEN OPERATIVO Y TÉCNICO</small><h2>Conclusión de Cierre del Equipo</h2></div>
+      <span class="n">04 / 05</span>
+    </div>
+
+    <div class="grid g3" style="margin-bottom:1em;">
+      <div class="card c1">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Aplicación Práctica</h3>
+        <p>El desarrollo de este proyecto representó la aplicación práctica de los conocimientos adquiridos a lo largo de la tecnicatura dentro de un escenario operativo real.</p>
+      </div>
+
+      <div class="card c4">
+        <h3><i class="fa-solid fa-industry"></i> Contexto TA-DIN</h3>
+        <p>El trabajo en conjunto con la empresa TA-DIN nos permitió analizar sus requerimientos industriales y estructurar una solución técnica integral para optimizar procesos como el control de asistencia y el seguimiento de la gestión humana.</p>
+      </div>
+
+      <div class="card c3">
+        <h3><i class="fa-solid fa-layer-group"></i> Integración por Módulos</h3>
+        <ul class="list" style="margin-top:0.3em; font-size:0.92em;">
+          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo A:</b> Plataforma estática con tarjetas NFC.</span></li>
+          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo B:</b> Biometría en tiempo real.</span></li>
+          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo C:</b> MySQL, PHP y Bootstrap para Recursos Humanos.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="final" style="background:var(--card); border-color:var(--line);">
+      <h4><i class="fa-solid fa-clipboard-check" style="color:var(--sky); margin-right:0.4em;"></i> Validación y Capacidad Operativa</h4>
+      <p>Este proceso, documentado en nuestra bitácora y validado en las distintas etapas con los responsables de la firma, demuestra la capacidad del equipo para organizar el trabajo, resolver requerimientos técnicos y entregar un producto informático completamente operativo, orientado a acompañar los estándares de la empresa.</p>
+    </div>
+  </section>
+
+  <!-- 5. CARÁTULA (se copia desde la primera con JS) -->
+  <section class="slide cover" id="cover-end"></section>
+
+</main>
+
+<footer>
+  <div><b>TA-DIN</b><span>DIGITALIZACIÓN DE PROCESOS</span></div>
+  <div class="dots" id="dots"></div>
+  <div class="mono" id="num">01 / 05</div>
+</footer>
+
+<script>
+  // La última diapositiva repite la carátula
+  document.getElementById('cover-end').innerHTML = document.getElementById('cover').innerHTML;
+
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.getElementById('dots');
+  const navBtns = document.querySelectorAll('#nav button');
+  let cur = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.setAttribute('aria-label', 'Diapositiva ' + (i + 1));
+    d.onclick = () => goToSlide(i);
+    dots.appendChild(d);
+  });
+
+  function render() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === cur));
+    [...dots.children].forEach((d, i) => d.classList.toggle('on', i === cur));
+    navBtns.forEach((b, i) => b.classList.toggle('on', i === (cur === 4 ? 0 : cur)));
+    document.getElementById('num').textContent =
+      String(cur + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+    slides[cur].scrollTop = 0;
+  }
+  function goToSlide(i) { cur = Math.max(0, Math.min(slides.length - 1, i)); render(); }
+  function changeSlide(d) { goToSlide(cur + d); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+  });
+  let x0 = 0;
+  document.addEventListener('touchstart', e => x0 = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const d = x0 - e.changedTouches[0].clientX;
+    if (d > 50) changeSlide(1); if (d < -50) changeSlide(-1);
+  });
+  render();
+</script>
+</body>
+</html>
