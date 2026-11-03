@@ -24,18 +24,18 @@ h1,h2,h3,h4,.cond{font-family:'Oswald','Montserrat',sans-serif;text-transform:up
 .mono{font-variant-numeric:tabular-nums}
 
 /* Header */
-header{background:#fff;color:#0f172a;display:flex;justify-content:space-between;align-items:center;
-  padding:.7rem 1.6rem;box-shadow:0 2px 10px rgba(0,0,0,.35);z-index:10;flex-shrink:0;gap:1rem}
+header{background:linear-gradient(90deg,#07101C,#122338 55%,#17304d);color:#fff;border-bottom:2px solid var(--sky);display:flex;justify-content:space-between;align-items:center;
+  padding:.7rem 1.6rem;box-shadow:0 2px 12px rgba(0,0,0,.45);z-index:10;flex-shrink:0;gap:1rem}
 .logo{font:700 1.7rem/1 'Oswald',sans-serif;letter-spacing:.18em}
-.tag{display:block;font:700 .6rem 'Montserrat',sans-serif;letter-spacing:.08em;color:#64748b;margin-top:.25rem;text-transform:uppercase}
+.tag{display:block;font:700 .6rem 'Montserrat',sans-serif;letter-spacing:.08em;color:var(--sky);margin-top:.25rem;text-transform:uppercase}
 nav{display:flex;gap:1.6rem}
-nav button{background:none;border:0;font:700 .78rem 'Montserrat',sans-serif;letter-spacing:.08em;color:#334155;cursor:pointer;
+nav button{background:none;border:0;font:700 .78rem 'Montserrat',sans-serif;letter-spacing:.08em;color:#CBD5E1;cursor:pointer;
   text-transform:uppercase;padding:.4rem 0;border-bottom:2px solid transparent}
-nav button:hover,nav button.on{color:#0C1929;border-bottom-color:#0C1929}
+nav button:hover,nav button.on{color:#fff;border-bottom-color:var(--sky)}
 .arrows{display:flex;gap:.5rem}
-.btn{background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.1);font:700 .75rem 'Montserrat',sans-serif;
+.btn{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25);font:700 .75rem 'Montserrat',sans-serif;
   letter-spacing:.08em;padding:.6rem .9rem;border-radius:5px;cursor:pointer;text-transform:uppercase;display:inline-flex;gap:.5rem;align-items:center}
-.btn:hover{background:#1B385A}
+.btn:hover{background:var(--sky);color:#07101C;border-color:var(--sky)}
 .btn.ghost{background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.35)}
 .btn.big{font-size:.9rem;padding:.95rem 1.5rem}
 .btn:focus-visible,nav button:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
@@ -60,6 +60,10 @@ main{flex:1;min-height:0;position:relative;padding:clamp(.8rem,2.2vh,2rem) clamp
 .cover h1{font-size:clamp(4rem,12vw,9rem);font-weight:700;line-height:.95;letter-spacing:.03em}
 .cover h3{font-size:clamp(1.3rem,3vw,2.4rem);font-weight:500;letter-spacing:.22em;color:#CBD5E1;margin:.4em 0 1em}
 .cover p{max-width:46em;line-height:1.65;color:#CBD5E1;font-size:1.1em;margin-bottom:2em}
+.team{margin-top:.2em;padding-top:1.2em;border-top:1px solid var(--line);max-width:52em}
+.team .course{font:700 .85em 'Montserrat',sans-serif;letter-spacing:.2em;color:var(--sky);text-transform:uppercase;margin-bottom:.9em}
+.team .members{display:flex;flex-wrap:wrap;justify-content:center;gap:.5em .6em}
+.team .members span{font:600 .9em 'Montserrat',sans-serif;color:#F1F5F9;background:rgba(255,255,255,.07);border:1px solid var(--line);padding:.4em 1em;border-radius:99px}
 .cover .row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
 
 /* Cards & Layout */
@@ -138,12 +142,7 @@ footer b{font:600 .95rem 'Oswald',sans-serif;letter-spacing:.12em;color:#fff;mar
 
 <header>
   <div><div class="logo">TA·DIN</div><span class="tag">Servicio profesional de pintura electroestática</span></div>
-  <nav id="nav">
-    <button onclick="goToSlide(0)">Inicio</button>
-    <button onclick="goToSlide(1)">Testimonio</button>
-    <button onclick="goToSlide(2)">Estimación económica</button>
-    <button onclick="goToSlide(3)">Conclusión</button>
-  </nav>
+ 
   <div class="arrows">
     <button class="btn" onclick="changeSlide(-1)" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i><span>Anterior</span></button>
     <button class="btn" onclick="changeSlide(1)" aria-label="Siguiente"><span>Siguiente</span><i class="fa-solid fa-chevron-right"></i></button>
@@ -158,6 +157,12 @@ footer b{font:600 .95rem 'Oswald',sans-serif;letter-spacing:.12em;color:#fff;mar
     <h1>TA-DIN</h1>
     <h3>Digitalización de procesos</h3>
     <p>Implementación integral de sistema biométrico de control de asistencia, desarrollo de portal de Recursos Humanos y plataforma web con tarjetas NFC para la certificación ISO 9001.</p>
+    <div class="team">
+      <div class="course">7mo Info B &nbsp;·&nbsp; Equipo 6</div>
+      <div class="members">
+        <span>Tatiana Bravo</span><span>Milagros Camino</span><span>Mia Niello</span><span>Nicolás Perri</span><span>Catalina Quintana</span>
+      </div>
+    </div>
   </section>
 
   <!-- 2. TESTIMONIO Y SERGIO BRAVO -->
@@ -170,10 +175,7 @@ footer b{font:600 .95rem 'Oswald',sans-serif;letter-spacing:.12em;color:#fff;mar
       <!-- Columna Izquierda: Video -->
       <div>
         <div class="video-container">
-          <video controls poster="input_file_0.png">
-            <source src="input_file_0.mp4" type="video/mp4">
-            Tu navegador no soporta la reproducción de video.
-          </video>
+          <iframe src="https://drive.google.com/file/d/1_Odbg4IYOUijXx7Kx04-rHBu6QoowH8Q/preview" width="640" height="360" allow="autoplay"></iframe>
         </div>
         <div class="video-info">
           <h4><i class="fa-solid fa-user-check"></i> Sergio Bravo</h4>
@@ -291,9 +293,10 @@ footer b{font:600 .95rem 'Oswald',sans-serif;letter-spacing:.12em;color:#fff;mar
       <div class="card c3">
         <h3><i class="fa-solid fa-layer-group"></i> Integración por Módulos</h3>
         <ul class="list" style="margin-top:0.3em; font-size:0.92em;">
-          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo A:</b> Plataforma estática con tarjetas NFC.</span></li>
-          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo B:</b> Biometría en tiempo real.</span></li>
-          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo C:</b> MySQL, PHP y Bootstrap para Recursos Humanos.</span></li>
+          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo A:</b> Sitio Web Institucional.</span></li>
+          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo B:</b> Reloj Biométrico.</span></li>
+          <li><i class="fa-solid fa-circle-dot"></i><span><b>Módulo C:</b> Página de Recursos Humanos.</span></li>
+          <li><i class="fa-solid fa-circle-dot"></i><span><b>Integración NFC:</b> Tarjetas de presentación con tecnólogia NFC.</span></li>
         </ul>
       </div>
     </div>
